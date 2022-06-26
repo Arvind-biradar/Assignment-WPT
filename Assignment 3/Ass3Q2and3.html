@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+    <title>Practice Test....</title>
+    <script>
+        $(() => {
+            $("#i1").blur(() => {
+                console.log("ab...");
+
+                var input = { bookid:$("#i1").val(), bookname:$("#i2").val(), price:$("#i3").val() };
+                 let call = {
+                    data: input,
+                    type: 'get',
+                    dataType: 'json',
+                    url: "http://localhost:5000/add",
+                    success: (da) => {
+                        console.log("Data mil Gya" + da);
+                        console.log(" Book Number :"+da);
+                        if (da.status === true) {
+                            $('#msg').text('Mil Gaya  bhai...');
+                            $('#i2').val(da.detail.bookname);
+                            $('#i3').val(da.detail.price);
+                        }
+                        else {
+                            $('#msg').text("No dat Is Available");
+
+                        }
+                    },
+                    error: (da) => { console.log("Error mill Gaya...") }
+
+                };
+
+                $.ajax(call);
+
+            });
+
+
+            $("#b2").click(() => {
+                console.log("ab b2 ...");
+
+                let input = { bookid:$("#i1").val(), bookname:$("#i2").val(), price:$("#i3").val() };
+                 let call = {
+                    data: input,
+                    type: 'get',
+                    dataType: 'json',
+                    url: "http://localhost:5000/insert",
+                    success: (da) => {
+                        console.log("Data mil Gya" + da.detail.length);
+                        // console.log(" Book Number :"+da);
+                        if (da.status === true) {
+                            let s1='';
+                            $('#msg').text('Updated');
+                         for(s=0;s<da.detail.length;s++){
+                             s1+=" "+da.detail[s].bookid+" "+da.detail[s].bookname+" "+da.detail[s].price;
+                        }
+                        // console.log(s);
+                        $('#msg1').text(s1);
+
+
+                            // $('#i2').val(da.detail.bookname);
+                            // $('#i3').val(da.detail.price);
+                        }
+                        else {
+                            $('#msg').text("No dat Is Available");
+
+                        }
+                    },
+                    error: (da) => { console.log("Error mill Gaya...") }
+
+                };
+
+                $.ajax(call);
+
+            });
+
+
+        //   ========================================
+        
+        $("#b1").click(() => {
+                console.log("ab b1 ...");
+
+                let input = { bookid:$("#i1").val(), bookname:$("#i2").val(), price:$("#i3").val() };
+                 let call = {
+                    data: input,
+                    type: 'get',
+                    dataType: 'json',
+                    url: "http://localhost:5000/fix",
+                    success: (da) => {
+                        console.log("Data mil Gya" + da);
+                        // console.log(" Book Number :"+da);
+                        if (da.status === true) {
+                            let s1='';
+                            $('#msg').text('Added');
+                        //  for(s=0;s<da.detail.length;s++){
+                        //      s1+=" "+da.detail[s].bookid+" "+da.detail[s].bookname+" "+da.detail[s].price;
+                        // }
+                        // console.log(s);
+                        // $('#msg1').text(s1);
+
+
+                            // $('#i2').val(da.detail.bookname);
+                            // $('#i3').val(da.detail.price);
+                        }
+                        else {
+                            $('#msg').text("No data added");
+
+                        }
+                    },
+                    error: (da) => { $("#msg").text("Error..."); }
+
+                };
+
+                $.ajax(call);
+
+            });
+        });
+ 
+        
+
+
+    </script>
+</head>
+
+<body>
+
+
+    <br><br>BOokID<input type="text" id="i1" placeholder="Bookid"><span id="msg">msg</span>
+    <br><br>BOokName<input type="text" id="i2" placeholder="Bookname">
+    <br><br>Price<input type="text" id="i3" placeholder="Price">
+    <br><br><button id="b1">add</button>
+    <button id="b2">update..</button>
+    <p id="msg1">output..</p>
+</body>
+
+</html>

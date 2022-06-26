@@ -1,0 +1,59 @@
+
+<!-- Linked with City files both pin enter next text city will appear  -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+    <title>City...</title>
+    <script>
+        $('document').ready(function () {
+
+            $('#i1').blur(() => {
+                // console.log("running in....");
+                let give = { i1: $('#i1').val(), i2: $('#i2').val() }
+                console.log("running in...." + $("#i1").val());
+
+                let call = {
+
+                    data: give,
+                    url: "http://localhost:3000/enter",
+                    type: 'get',
+                    dataType: 'json',
+                    success: (data) => {
+                        console.log('Out :' + data.status)
+                        if (data.status == true) {
+                            $("#i2").val(data.detail.i2);
+                        }else {
+                            $("#i2").val("No Data Available");   
+                        }
+                    },
+                    error: (data) => {
+                        console.log('Out Error :')
+
+
+                    }
+
+
+                }
+$.ajax(call);
+
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+
+    <input type="text" id="i1" placeholder="Pincode" style="border: 1px solid red; padding:30px; font-size: 25px;">
+    <br>
+    <input type="text" id="i2" placeholder="City" style="border: 1px solid red;  padding:30px; font-size: 25px;">
+
+</body>
+
+</html>

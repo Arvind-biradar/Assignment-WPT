@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <style>
+    .c1{
+         color:Red;
+         }
+    .c2{
+         color:rgb(65, 30, 207);
+         }
+    </style>
+    <script>
+      window.addEventListener('DOMContentLoaded',()=>{
+     
+       let Item=[];
+
+         let content=document.querySelector("#Content");
+         let msg=document.querySelector("#Msg");
+         let itemno=document.querySelector("#Itemno");
+         let itemname=document.querySelector("#Itemname");
+         let itemprice=document.querySelector("#Itemprice");
+         let edit=document.querySelector("#Edit");
+         let add=document.querySelector("#Add");
+         let update=document.querySelector("#Update");
+
+        
+        
+         Item.push({Itemno:1,Itemname:"pen",Itemprice:20});
+        Item.push({Itemno:2,Itemname:"Book",Itemprice:250});
+        Item.push({Itemno:3,Itemname:"pad",Itemprice:100});
+
+
+//================================================================================
+             function Showitem(){
+           let item='';
+          for(var i=0;i<Item.length; i++){
+             item+=Item[i].Itemno+" "+"    "+Item[i].Itemname+"    "+"   "+Item[i].Itemprice+"<br/>";
+          };
+          content.innerHTML=item;
+             }
+             Showitem();
+//===============================================================================
+
+Itemno.addEventListener('blur',()=>{
+  
+  let itemnumber=itemno.value;
+  let output=checkitemno(itemnumber);
+  //console.log(output);
+  if(output.status){
+      msg.innerHTML="Item Found";
+      itemname.value=output.Details.Itemname;
+      itemprice.value=output.Details.Itemprice;
+      add.disabled=true;
+
+      update.disabled=true;
+
+      edit.disabled=false;
+
+
+  }else{
+      msg.innerHTML="Item Not Found";
+      itemname.value='';
+      itemprice.value='';
+      add.disabled=false;
+      edit.disabled=true;
+
+  }
+  
+  
+});
+
+
+
+
+//==============================================================================
+       
+       function checkitemno(number){
+        let output={status:false , Details:{Itemno:1,Itemname:"pan",Itemprice:33}}
+        for(var i=0;i<Item.length;i++){
+            if(Item[i].Itemno==number){
+                output.status=true;
+                output.Details.Itemprice=Item[i].Itemprice;
+                output.Details.Itemname=Item[i].Itemname;
+
+            }
+            
+
+        }
+        return output;
+       }
+//===============================================================================
+
+
+function additem(input){
+
+
+Item.push(input);
+return true;
+
+}
+
+
+//===============================================================================
+
+
+add.addEventListener('click',()=>{
+   
+    let input={Itemno:itemno.value,Itemname:itemname.value,Itemprice:itemprice.value};
+
+    let output=additem(input);
+    if(output){
+
+        msg.innerHTML="Item Added Successfully"
+    }
+Showitem();
+   
+   
+});
+       
+//===============================================================================
+
+edit.addEventListener('click',()=>{
+    
+
+update.disabled=false;
+edit.disabled=true;
+// itemname.value='';
+// itemprice.value='';
+msg.innerHTML="Enter New Itemname and Itemprice";
+
+
+});
+//===================================================================
+
+
+function checkindex(number){
+    let ret=-1;
+    for(var i=0;i<Item.length;i++){
+        if  (Item[i].Itemno==number)
+          ret=i; 
+        return ret;
+    }
+}
+
+
+//===================================================================
+update.addEventListener('click',()=>{
+
+     let index=checkindex(itemno.value);
+
+      Item[index].Itemname=itemname.value;
+
+      Item[index].Itemprice=itemprice.value;
+      msg.innerHTML="Updated Sucessfully";
+      Showitem();
+
+
+});  
+
+//==============================================================================
+      });
+
+
+
+
+
+    </script>
+    <title>Sir Solved Question    </title>
+</head>
+<body>
+    <input id="Itemno" placeholder="Enter ItemNo">
+    <span id="Msg">Message</span><br><br>
+
+    <input id="Itemname" placeholder="Enter Itemname">
+    <br><br>
+    <input id="Itemprice" placeholder="Enter Price">
+    <br><br>
+    <button id="Add" disabled>Add</button> <button id="Edit" disabled>Edit </button>
+    <button id="Update" disabled>Update</button><br>
+    <p id="Content">Content</p>
+
+
+
+
+</body>
+</html>

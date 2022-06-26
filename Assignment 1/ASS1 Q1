@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Practicle 5</title>
+    <style>
+      .c1{
+          color:brown;
+      }
+      .c2{
+          color:blue;
+      }
+
+    </style>
+
+    <script>
+    window.addEventListener('DOMContentLoaded',()=>{
+        
+ console.log("Arvind Working");
+ let arr=[1,2,3,4,5,6,7,8,9,10];
+ let val='';
+     let input=document.querySelector("#Input");
+     let msg=document.querySelector("#Msg");
+     let add1=document.querySelector("#Add");
+     let edit=document.querySelector("#Edit");
+     let update=document.querySelector("#Update");
+     let delet=document.querySelector("#Delete");
+     let viewall=document.querySelector("#ViewAll");
+     let viewoddposition=document.querySelector("#ViewOddPosition");
+     let content=document.querySelector("#Content");
+//============================================================================
+
+add1.addEventListener('click',()=>{
+
+let num=input.value;
+let output=checknumber(num);
+if(!output){
+    arr.push(num);
+    msg.classList.remove("c1");
+
+    msg.classList.add("c2");
+
+    msg.innerText="Number Added Successfully";
+
+}
+
+});
+// ==============================================================================
+viewall.addEventListener('click',()=>{
+
+let num='';
+for(var i=0;i<arr.length;i++){ 
+   num+=" "+arr[i];
+}
+content.innerHTML=num;
+
+
+});
+// ==============================================================================
+viewoddposition.addEventListener('click',()=>{
+
+let num='';
+for(var i=0;i<arr.length;i++){ 
+    if((i%2)==0){
+   num+="<br/>"+arr[i];}
+}
+content.innerHTML=num;
+
+
+});
+//==============================================================================
+edit.addEventListener('click',()=>{
+
+let number=input.value;
+for(var i=0;i<arr.length;i++){ 
+    let val=i;
+    if(arr[i]==number){  
+add1.disabled=true;
+edit.disabled=true;
+delet.disabled=true;
+update.disabled=false;
+viewall.disabled=false;
+viewoddposition.disabled=false;
+msg.innerText=""; 
+
+// let v=window.prompt("Enter New Number");
+// update.addEventListener('click',()=>{
+//     console.log(val);
+//        arr[val]=v;         
+//   });
+
+
+}
+}
+
+});
+//=============================================================================
+
+function updatenumber(i){
+
+
+};
+
+// =============================================================================
+
+delet.addEventListener('click',()=>{
+
+let index=-1;
+let num=input.value;
+for(var i=0; i<arr.length; i++){ 
+    if(arr[i]==num){
+   arr.splice(i,1);}
+}
+msg.innerText="Number Deleted";
+
+
+});
+//===============================================================================   
+
+
+update.addEventListener('click',()=>{
+
+    let number=input.value;
+
+    console.log(number);
+   
+    for(var i=0;i<arr.length;i++){ 
+    if(arr[i]==number){
+       let val=window.prompt("Enter New Number");
+    console.log("Val "+val);
+  arr[i]= val;}}
+  msg.innerText="Number Updated Successfully";
+});
+   
+
+
+
+
+
+
+
+
+
+//===============================================================================
+     function checknumber(number){
+     for(var i=0; i<arr.length;i++){
+         if(arr[i]==number){
+             return true;
+         }
+     }
+        return false;
+    }
+
+//===========================================================================
+input.addEventListener('blur',()=>{
+        let num= input.value;
+    let output=checknumber(num);
+    if(output){
+add1.disabled=true;
+edit.disabled=false;
+delet.disabled=false;
+update.disabled=true;
+viewall.disabled=true;
+viewoddposition.disabled=true;
+msg.innerText="Number Present";
+msg.classList.remove("c1");
+
+msg.classList.add("c2");
+
+}
+else{
+    add1.disabled=false;
+edit.disabled=true;
+delet.disabled=true;
+update.disabled=true;
+viewall.disabled=false;
+viewoddposition.disabled=false;
+msg.innerText="Number Not Present";
+msg.classList.remove("c2");
+
+msg.classList.add("c1");
+
+}
+
+
+
+});
+
+    });
+
+
+    </script>
+</head>
+<body>
+
+    <input id="Input" type="text" placeholder="Enter Number">
+    <span id="Msg">Result is Here</span>
+    <br><br>
+    <button id="Add"  disabled>Add</button>
+
+    <button id="Edit" disabled>Edit</button>
+
+    <button id="Update" disabled >Update</button>
+
+    <button id="Delete" disabled>Delete</button>
+
+    <button id="ViewAll" disabled>ViewAll</button>
+
+    <button id="ViewOddPosition" disabled>ViewOddPosition</button>
+    <p id="Content">Content</p>
+
+    
+</body>
+</html>

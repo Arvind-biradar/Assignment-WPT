@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <title>Ass Q2</title>
+    <script>
+
+window.addEventListener('DOMContentLoaded',()=>{
+
+   let Employee=[];
+   let empno=document.querySelector("#Empno");
+   let empname=document.querySelector("#Empname");
+
+   let email =document.querySelector("#Email");
+   let deptid=document.querySelector("#Deptid");
+   let add=document.querySelector("#Add");
+
+   let modify=document.querySelector("#Modify");
+   let msg=document.querySelector("#Msg");
+   let viewall=document.querySelector("#Viewall");
+   let viewonid=document.querySelector("#Viewonid");
+   let remov=document.querySelector("#Remove");
+   let content=document.querySelector("#Content");
+
+   Employee.push({Empno:1,Empname:'Arvind',Email:"Arb18@gamil.com",Deptid:10});
+   Employee.push({Empno:2,Empname:'Priti',Email:"prb18@gamil.com",Deptid:10});
+   Employee.push({Empno:3,Empname:'Varsha',Email:"vrb18@gamil.com",Deptid:11});
+//================================================================================
+   function showall(){
+    let out='';
+    for(var i=0;i<Employee.length;i++){
+     out+="<br>"+Employee[i].Empno+" "+Employee[i].Empname+" "+Employee[i].Email+' '+Employee[i].Deptid;
+    }
+       content.innerHTML=out;
+   }
+   showall();
+
+//=============================================================================
+   function checkemployee(num){
+
+for(var s=0;s<Employee.length;s++){
+  if(Employee[s].Empno==num){
+    empname.value=Employee[s].Empname;
+
+    email.value=Employee[s].Email;
+    deptid.value=Employee[s].Deptid;
+
+    return true;
+  }
+
+}
+return false;
+
+} 
+
+
+
+
+
+//================================================================================
+empno.addEventListener('blur',()=>{
+ 
+     let number=empno.value;
+    let output= checkemployee(number);
+    console.log(output);
+ if(output){
+     msg.innerHTML="Employee Found";
+     modify.disabled=false;
+     remov.disabled=false;
+  
+ }else{
+msg.innerHTML="Employee Not Found"; 
+    add.disabled=false;
+    empname.value='';
+email.value='';
+deptid.value='';
+     
+ }
+ 
+});
+//===============================================================================
+
+
+add.addEventListener('click',()=>{
+
+    let num=empno.value;
+    let i=checkindex(num);
+    if(num){}
+    let input={Empno:empno.value,Empname:empname.value,Email:email.value,Deptid:deptid.value}
+
+if(i>=-0){
+   msg.innerHTML= Employee[i].Empno+" "+Employee[i].Empname+" "+Employee[i].Email+' '+Employee[i].Deptid;
+Employee.push(input);
+}
+
+    showall(); 
+   
+   
+    
+
+})
+
+
+
+
+
+//================================================================================
+
+modify.addEventListener('click',()=>{
+  
+  let number=empno.value;
+  let input={ Empno:empno.value,Empname:empname.value,
+        Email:email.value,
+        Deptid:deptid.value};
+
+        for(var i=0;i<Employee.length;i++){
+    if(Employee[i].Empno==number){
+        
+        
+        Employee[i].Empname=empname.value;
+        
+        Employee[i].Email=email.value;
+        Employee[i].Deptid=deptid.value;
+    
+    msg.innerHTML=Employee[i].Empno+" "+Employee[i].Empname+" "+"Added Sucessylly"
+    }
+
+  }
+showall();
+   
+  
+  
+});
+//==================================================================================
+function checkindex(num){
+let index=-1;
+    for(var i=0;i<Employee.length;i++){
+    if(Employee[i].Empno==num){
+       index=i;
+        return index;
+    }
+
+  }
+return index;
+}
+
+
+
+
+//================================================================================
+viewall.addEventListener('click',()=>{
+
+   showall();
+
+
+});
+
+
+//=============================================================================
+
+
+function callonid(id){
+   let con='';
+    for(var s=0;s<Employee.length;s++){
+
+if(Employee[s].Deptid==id){
+  con+="<br>"+Employee[s].Empno+" "+Employee[s].Empname+" "+Employee[s].Email+' '+Employee[s].Deptid;
+    }
+}
+
+content.innerHTML=con;
+}
+
+//=============================================================================
+viewonid.addEventListener('click',()=>{
+  
+    let id=deptid.value;
+    callonid(id);
+    
+});
+
+
+//==============================================================================
+
+remov.addEventListener('click',()=>{
+
+    let num=empno.value;
+       let index=checkindex(num);
+       Employee.splice(index,1);  
+       showall();
+       
+});
+
+
+
+
+//==============================================================================
+ 
+ 
+
+});     
+    </script>
+</head>
+<body>
+    <input id="Empno"  placeholder="Employee Number">
+    <span id="Msg" >Message</span><br><br>
+    <input id="Empname"  placeholder="Employee Name"><br><br>
+    <input id="Email"  placeholder="Employee Mail"><br><br>
+    <input id="Deptid"  placeholder="Depart no."><br><br>
+    <button id="Add" disabled >Add</button>
+    <button id="Modify" disabled >Modify</button>
+    <button id="Remove" disabled >Remove</button>
+    <button id="Viewall"  >Viewall</button>
+    <button id="Viewonid"  >Viewonid</button>
+    <p id="Content">Content</p>
+
+
+
+</body>
+</html>
